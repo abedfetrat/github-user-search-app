@@ -32,10 +32,27 @@
   padding: 0;
 }
 
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 16px;
+  border: none;
+  background: none;
+  font-weight: bold;
+}
+
 .App {
   width: 100vw;
   height: 100vh;
   font-family: "Space Mono", monospace;
+  font-size: 13px;
   background-color: var(--color-canvas);
   color: var(--color-text);
 }
@@ -45,4 +62,24 @@
   --color-surface: var(--fainting-light);
   --color-text: var(--white);
   --color-text-secondary: var(--white);
+}
+
+/* Components */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 24px 35px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.theme-toggle {
+  color: var(--color-text);
+  text-transform: uppercase;
 }
