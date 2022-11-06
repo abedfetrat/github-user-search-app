@@ -14,14 +14,9 @@
   --fainting-light: #1e2a47;
   --tart-orange: #f74646;
 
-  --color-canvas: var(--ghost-white);
-  --color-surface: var(--white-as-heaven);
   --color-primary: var(--blue-sparkle);
-  --color-error: var(--tart-orange);
-  --color-text: var(--san-marino);
-  --color-text-secondary: var(--anchors-aweigh);
-
   --color-primary-active: var(--abi-blue);
+  --color-error: var(--tart-orange);
 }
 
 *,
@@ -30,6 +25,20 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body.light {
+  --color-canvas: var(--ghost-white);
+  --color-surface: var(--white-as-heaven);
+  --color-text: var(--san-marino);
+  --color-text-secondary: var(--anchors-aweigh);
+}
+
+body.dark {
+  --color-canvas: var(--hei-se-black);
+  --color-surface: var(--fainting-light);
+  --color-text: var(--white);
+  --color-text-secondary: var(--white);
 }
 
 button,
@@ -85,13 +94,6 @@ a:hover {
     place-content: center;
     padding-block: 0;
   }
-}
-
-.App.dark {
-  --color-canvas: var(--hei-se-black);
-  --color-surface: var(--fainting-light);
-  --color-text: var(--white);
-  --color-text-secondary: var(--white);
 }
 
 /* Common */

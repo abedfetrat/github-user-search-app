@@ -1,10 +1,10 @@
 import ThemeToggle from "./ThemeToggle";
 
-function Header({ darkMode }) {
+function Header({ theme, toggleTheme }) {
   return (
     <header className="header">
       <h1 className="logo">devfinder</h1>
-      <ThemeToggle darkMode={darkMode} />
+      <ThemeToggle theme={theme} toggleTheme={toggleTheme}/>
     </header>
   );
 }
