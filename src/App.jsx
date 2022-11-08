@@ -5,45 +5,12 @@ import Detail from "./components/Detail";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const user = {
-  login: "abedfetrat",
-  id: 62446044,
-  node_id: "MDQ6VXNlcjYyNDQ2MDQ0",
-  avatar_url: "https://avatars.githubusercontent.com/u/62446044?v=4",
-  gravatar_id: "",
-  url: "https://api.github.com/users/abedfetrat",
-  html_url: "https://github.com/abedfetrat",
-  followers_url: "https://api.github.com/users/abedfetrat/followers",
-  following_url:
-    "https://api.github.com/users/abedfetrat/following{/other_user}",
-  gists_url: "https://api.github.com/users/abedfetrat/gists{/gist_id}",
-  starred_url: "https://api.github.com/users/abedfetrat/starred{/owner}{/repo}",
-  subscriptions_url: "https://api.github.com/users/abedfetrat/subscriptions",
-  organizations_url: "https://api.github.com/users/abedfetrat/orgs",
-  repos_url: "https://api.github.com/users/abedfetrat/repos",
-  events_url: "https://api.github.com/users/abedfetrat/events{/privacy}",
-  received_events_url:
-    "https://api.github.com/users/abedfetrat/received_events",
-  type: "User",
-  site_admin: false,
-  name: "Abed Fetrat",
-  company: null,
-  blog: "",
-  location: "Stockholm",
-  email: null,
-  hireable: null,
-  bio: null,
-  twitter_username: null,
-  public_repos: 20,
-  public_gists: 0,
-  followers: 0,
-  following: 2,
-  created_at: "2020-03-20T19:54:55Z",
-  updated_at: "2022-09-03T10:56:18Z",
-};
-
 function App() {
   const [theme, setTheme] = useLocalStorageState("theme", "light");
+  const [searchQuery, setSearchQuery] = useState(null);
+  const [user, loading, error] = useFetch(
+    searchQuery ? `https://api.github.com/users/${searchQuery}` : null
+  );
 
   useEffect(() => {
     document.body.className = theme;
@@ -53,12 +20,18 @@ function App() {
     setTheme((theme) => (theme === "light" ? "dark" : "light"));
   };
 
+  const handleSearch = (query) => {
+    if (query && query.length > 0) {
+      setSearchQuery(query);
+    }
+  };
+
   return (
     <div className="App">
       <div>
         <Header theme={theme} toggleTheme={toggleTheme} />
         <main>
-          <Search />
+          <Search loading={loading} error={error} onSearch={handleSearch} />
           <Detail user={user} />
         </main>
       </div>
@@ -77,6 +50,33 @@ function useLocalStorageState(key, initialValue) {
   }, [key, value]);
 
   return [value, setValue];
+}
+
+function useFetch(endpoint) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!endpoint) return;
+    setLoading(true);
+    fetch(endpoint)
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status.toString());
+        return response.json();
+      })
+      .then((data) => {
+        setLoading(false);
+        setData(data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+        setLoading(false);
+        setError(error.message);
+      });
+  }, [endpoint]);
+
+  return [data, loading, error];
 }
 
 export default App;

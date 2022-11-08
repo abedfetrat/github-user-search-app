@@ -11,6 +11,8 @@ function Detail({ user }) {
       year: "numeric",
     });
   };
+  
+  if (!user) return;
 
   return (
     <section className="detail card">
