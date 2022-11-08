@@ -32,6 +32,7 @@ body.light {
   --color-surface: var(--white-as-heaven);
   --color-text: var(--san-marino);
   --color-text-secondary: var(--anchors-aweigh);
+  --color-theme-toggle-active: var(--hei-se-black);
 }
 
 body.dark {
@@ -39,6 +40,7 @@ body.dark {
   --color-surface: var(--fainting-light);
   --color-text: var(--white);
   --color-text-secondary: var(--white);
+  --color-theme-toggle-active: var(--san-marino);
 }
 
 button,
@@ -74,12 +76,20 @@ a:hover {
   justify-content: center;
   padding-block: 32px;
   width: 100vw;
-  min-height: 100vh;
-  overflow: auto;
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   font-family: "Space Mono", monospace;
   font-size: 13px;
   background-color: var(--color-canvas);
   color: var(--color-text);
+}
+
+.App::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 @media screen and (min-width: 768px) {
@@ -91,8 +101,7 @@ a:hover {
 @media screen and (min-width: 1110px) {
   .App {
     grid-template-columns: min(100%, 730px);
-    place-content: center;
-    padding-block: 0;
+    padding-block: 144px;
   }
 }
 
@@ -131,9 +140,37 @@ a:hover {
 .theme-toggle {
   color: var(--color-text);
   text-transform: uppercase;
+  transition: color 120ms ease;
+}
+
+.theme-toggle:active,
+.theme-toggle:focus,
+.theme-toggle:hover {
+  color: var(--color-theme-toggle-active);
+}
+
+.theme-toggle svg path,
+.theme-toggl svg path,
+.theme-toggl svg path {
+  transition: fill 120ms ease;
+}
+
+.theme-toggle:active svg path,
+.theme-toggle:focus svg path,
+.theme-toggle:hover svg path {
+  fill: var(--color-theme-toggle-active);
 }
 
 /* Search */
+
+@keyframes shoot {
+  from {
+    left: -200px;
+  }
+  to {
+    left: 100%;
+  }
+}
 
 .search {
   position: relative;
@@ -142,6 +179,25 @@ a:hover {
   column-gap: 7px;
   margin-top: 36px;
   padding: 7px;
+  overflow: hidden;
+}
+
+.search.loading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 200px;
+  height: 3px;
+  background: rgb(0, 121, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 121, 255, 0) 0%,
+    rgba(0, 121, 255, 1) 50%,
+    rgba(0, 121, 255, 0) 100%
+  );
+  animation: shoot 1.2s ease-in infinite;
 }
 
 .search__icon {
@@ -219,6 +275,17 @@ a:hover {
 
 /* Detail */
 
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .detail {
   display: grid;
   grid-template-columns: 70px 1fr;
@@ -226,6 +293,7 @@ a:hover {
   row-gap: 32px;
   margin-top: 16px;
   padding: 32px 24px 48px;
+  animation: slideUp 500ms cubic-bezier(0, 0, 0.01, 1.02);
 }
 
 .detail > * {
