@@ -59,6 +59,7 @@ function useFetch(endpoint) {
 
   useEffect(() => {
     if (!endpoint) return;
+    setError(null);
     setLoading(true);
     fetch(endpoint)
       .then((response) => {
