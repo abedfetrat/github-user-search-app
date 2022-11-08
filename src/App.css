@@ -233,6 +233,7 @@ a:hover {
 }
 
 .detail__avatar {
+  border-radius: 50%;
   grid-column: 1;
 }
 
