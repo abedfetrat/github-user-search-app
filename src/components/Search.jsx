@@ -12,19 +12,21 @@ function Search({ loading, error, onSearch }) {
   };
 
   return (
-    <div className={`search card ${loading && "loading"}`}>
-      <SearchIcon className="search__icon" />
-      <input
-        className="search__input"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        placeholder="Search GitHub username..."
-      />
+    <div className={`search ${loading && "loading"}`}>
+      <div className="search__bar card">
+        <SearchIcon className="search__icon" />
+        <input
+          className="search__input"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+          placeholder="Search GitHub username..."
+        />
+        <button className="button" onClick={handleSearch}>
+          Search
+        </button>
+      </div>
       {error && <p className="search__error">No results</p>}
-      <button className="button" onClick={handleSearch}>
-        Search
-      </button>
     </div>
   );
 }
