@@ -1,9 +1,10 @@
-import "./App.css";
+import { useState, useEffect } from "react";
+import useLocalStorageState from "./hooks/useLocalStorageState";
+import useFetch from "./hooks/useFetch";
 import Header from "./components/Header";
 import Search from "./components/Search";
 import Detail from "./components/Detail";
-import { useState } from "react";
-import { useEffect } from "react";
+import "./App.css";
 
 function App() {
   const [theme, setTheme] = useLocalStorageState("theme", "light");
@@ -37,47 +38,6 @@ function App() {
       </div>
     </div>
   );
-}
-
-function useLocalStorageState(key, initialValue) {
-  const [value, setValue] = useState(() => {
-    const persistedValue = localStorage.getItem(key);
-    return persistedValue !== null ? persistedValue : initialValue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [key, value]);
-
-  return [value, setValue];
-}
-
-function useFetch(endpoint) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (!endpoint) return;
-    setError(null);
-    setLoading(true);
-    fetch(endpoint)
-      .then((response) => {
-        if (!response.ok) throw new Error(response.status.toString());
-        return response.json();
-      })
-      .then((data) => {
-        setLoading(false);
-        setData(data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        setLoading(false);
-        setError(error.message);
-      });
-  }, [endpoint]);
-
-  return [data, loading, error];
 }
 
 export default App;
