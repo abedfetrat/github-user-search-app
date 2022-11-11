@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  /* Colors for default light theme */
+  --blue-sparkle: #0079ff;
+  --abi-blue: #60abff;
+  --searching-blue: #697c9a;
+  --san-marino: #4b6a9b;
+  --anchors-aweigh: #2b3442;
+  --ghost-white: #f6f8ff;
+  --white: #ffffff;
+  --white-as-heaven: #fefefe;
+  --hei-se-black: #141d2f;
+  --fainting-light: #1e2a47;
+  --tart-orange: #f74646;
+
+  --color-primary: var(--blue-sparkle);
+  --color-primary-active: var(--abi-blue);
+  --color-error: var(--tart-orange);
+
+  --color-canvas: var(--ghost-white);
+  --color-surface: var(--white-as-heaven);
+  --color-text: var(--san-marino);
+  --color-text-secondary: var(--anchors-aweigh);
+  --color-theme-toggle-active: var(--hei-se-black);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: bold;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  word-wrap: anywhere;
+}
+
+a:hover {
+  text-decoration: underline;
+}
