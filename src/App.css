@@ -149,9 +149,7 @@ a:hover {
   color: var(--color-theme-toggle-active);
 }
 
-.theme-toggle svg path,
-.theme-toggl svg path,
-.theme-toggl svg path {
+.theme-toggle svg path {
   transition: fill 120ms ease;
 }
 
@@ -221,6 +219,7 @@ a:hover {
 }
 
 .search__input::placeholder {
+  opacity: 1;
   color: inherit;
 }
 
@@ -250,7 +249,7 @@ a:hover {
 }
 
 @media screen and (min-width: 768px) {
-  .search {
+  .search__bar {
     column-gap: 24px;
     padding: 10px;
   }
